@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 tarefaslista = []
+proximo_id = 1
 
 app = FastAPI()
 
@@ -11,8 +12,6 @@ class Tarefa(BaseModel):
     descricao : str
     concluido : bool
     
-
-
 @app.get('/')
 def ler_raiz():
     return {'Mensagen' : 'Ola mundo'}
@@ -24,7 +23,10 @@ def listar_tarefas():
 @app.post('/tarefas', status_code=201)
 def criar_tarefas(tarefa: Tarefa):
     
-    tarefa.id = len(tarefaslista) + 1
+    global proximo_id
+    
+    tarefa.id = proximo_id
+    proximo_id += 1
     
     tarefaslista.append(tarefa)
     
