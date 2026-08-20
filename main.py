@@ -93,7 +93,18 @@ Returns:
 
 @app.get('/tarefas/{tarefa_id}')
 def buscar_tarefa(tarefa_id: int):
+    """
+busca uma tarefa especifica.
+
+Args:
+    tarefa_id (int): Identifica a tarefa
+
+Returns:
+    retorna uma tarefa especifica ou erro.
+    """
     
     for tarefa in tarefaslista:
         if tarefa.id == tarefa_id:
             return tarefa
+        
+    raise HTTPException(status_code=404, detail="Tarefa não encontrada")
