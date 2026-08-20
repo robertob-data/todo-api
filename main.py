@@ -89,3 +89,11 @@ Returns:
             return {"mensagem": "Tarefa atualizada com sucesso!", "item_atualizado": dados}
 
     raise HTTPException(status_code=404, detail="Tarefa não encontrada")
+
+
+@app.get('/tarefas/{tarefa_id}')
+def buscar_tarefa(tarefa_id: int):
+    
+    for tarefa in tarefaslista:
+        if tarefa.id == tarefa_id:
+            return tarefa
